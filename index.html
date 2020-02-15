@@ -9,7 +9,22 @@
     <link type="text/css" rel="stylesheet" href="./css/reset.css" />
   </head>
   <body>
-    <div>
+    <div class="container">
+      <div class="form-container">
+        <form id="book-form">
+          <label for="title">Title</label><br />
+          <input type="text" id="title" name="title" /><br />
+          <label for="author">Author</label><br />
+          <input type="text" id="author" name="author" /><br />
+          <label for="title">Pages</label><br />
+          <input type="text" id="pages" name="pages" /><br />
+          <input type="radio" id="read" name="read-status" value="read" />
+          <label for="read">Read</label>
+          <input type="radio" id="not-read" name="read-status" value="not-read" />
+          <label for="not-read">Not Read</label><br />
+          <button>Submit</button>
+        </form>
+      </div>
     </div>
   </body>
 </html>
