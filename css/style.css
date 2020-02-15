@@ -2,3 +2,24 @@ body, html {
     width: 100%;
     height: 100%;
 }
+
+.container {
+    width: 100%;
+    height: 100%;
+    background-color: antiquewhite;
+}
+
+.form-container{
+    width: 300px;
+    height: 200px;
+    background-color: brown;
+}
+
+.card {
+    width: 200px;
+    height: 300px;
+    background-color: aquamarine;
+    border-radius: 10px;
+    position: relative;
+    float: right;
+}
