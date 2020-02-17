@@ -24,7 +24,6 @@ let myLibrary = [
   }
 ];
 
-console.table(myLibrary);
 render(myLibrary);
 
 function Book(title, author, pages, read) {
@@ -33,10 +32,6 @@ function Book(title, author, pages, read) {
   this.pages = pages;
   this.read = read;
 }
-
-Book.prototype.info = function() {
-  return this.title + " " + this.author + " " + this.pages + " " + this.read;
-};
 
 function addBookToLibrary(book) {
   myLibrary.push({ ...book });
@@ -55,44 +50,60 @@ bookForm.addEventListener("submit", function(event) {
 });
 
 function render(myLibrary) {
-  myLibrary.forEach(function(book, index) {
-    const cardExists = document.querySelector(`div[data-value="${index}"]`);
-    if (!cardExists) {
+  myLibrary.forEach(book => {
+    if (!book.id) {
+      let id = uuidv4();
       const card = document.createElement("div");
       card.classList.add("card");
       card.classList.add("on-display");
-      book.id = index;
-      card.dataset.value = index;
+      book.id = id;
+      card.dataset.value = id;
       container.appendChild(card);
+      const cardTitleDiv = document.createElement('div');
+      cardTitleDiv.classList.add('title');
       const cardTitle = document.createElement("p");
       cardTitle.innerHTML = `Book: ${book.title}`;
-      card.appendChild(cardTitle);
+      cardTitleDiv.appendChild(cardTitle);
+      const cardAuthorDiv = document.createElement("div");
+      cardAuthorDiv.classList.add('author');
       const cardAuthor = document.createElement("p");
       cardAuthor.innerHTML = `Author: ${book.author}`;
-      card.appendChild(cardAuthor);
+      cardAuthorDiv.appendChild(cardAuthor);
+      const cardPagesDiv = document.createElement("div");
+      cardPagesDiv.classList.add('pages');
       const cardPages = document.createElement("p");
       cardPages.innerHTML = `Pages: ${book.pages}`;
-      card.appendChild(cardPages);
+      cardPagesDiv.appendChild(cardPages);
+      card.appendChild(cardTitleDiv);
+      card.appendChild(cardAuthorDiv);
+      card.appendChild(cardPagesDiv);
       book.read == "Read"
         ? card.classList.add("read")
         : card.classList.add("not-read");
+      const readBtnDiv = document.createElement("div");
+      readBtnDiv.classList.add('read-btn')
       const readBtn = document.createElement("button");
       book.read == "Read"
         ? (readBtn.innerHTML = "Read")
         : (readBtn.innerHTML = "Unread");
-      card.appendChild(readBtn);
+      readBtnDiv.appendChild(readBtn)
+      card.appendChild(readBtnDiv);
       readBtn.addEventListener("click", () => {
         changeStatus(event.target.parentNode);
       });
+      const deleteBtnDiv = document.createElement("div");
       const deleteBtn = document.createElement("button");
-      deleteBtn.innerHTML = "delete";
-      card.appendChild(deleteBtn);
+      deleteBtnDiv.appendChild(deleteBtn)
+      card.appendChild(deleteBtnDiv);
+      deleteBtn.innerHTML = "x";
+      deleteBtnDiv.appendChild(deleteBtn);
       deleteBtn.addEventListener("click", () => {
-        deleteCard(event.target.parentNode, index);
+        deleteCard(event.target.parentNode);
       });
     }
-    console.table(myLibrary);
   });
+  console.table(myLibrary);
+
 }
 
 addBtn.addEventListener("click", () => {
@@ -106,14 +117,13 @@ function deleteCard(card) {
   container.removeChild(card);
   myLibrary.forEach(function(book, index) {
     if (book.id == card.dataset.value) {
-      console.log(index);
       myLibrary.splice(index, 1);
     }
   });
   console.table(myLibrary);
 }
 
-function getId(card) {
+function getIndex(card) {
   let indexValue = 0;
   myLibrary.forEach(function(book, index) {
     if (book.id == card.dataset.value) {
@@ -124,7 +134,7 @@ function getId(card) {
 }
 
 function changeStatus(card) {
-  const index = getId(card);
+  const index = getIndex(card);
   if (card.classList.contains("read")) {
     card.classList.remove("read");
     card.classList.add("not-read");
@@ -137,4 +147,11 @@ function changeStatus(card) {
     event.target.innerHTML = "Read";
   }
   console.table(myLibrary);
+}
+
+function uuidv4() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
 }
