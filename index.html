@@ -4,27 +4,61 @@
   <head>
     <meta charset="utf-8" />
     <title>Library</title>
-    <script type="text/javascript" src="./js/javascript.js" defer></script>
     <link type="text/css" rel="stylesheet" href="./css/style.css" />
     <link type="text/css" rel="stylesheet" href="./css/reset.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap"
+      rel="stylesheet"
+    />
+    <script type="text/javascript" src="./js/javascript.js" defer></script>
   </head>
   <body>
     <div class="container">
-      <div class="form-container">
-        <form id="book-form">
-          <label for="title">Title</label><br />
-          <input type="text" id="title" name="title" /><br />
-          <label for="author">Author</label><br />
-          <input type="text" id="author" name="author" /><br />
-          <label for="title">Pages</label><br />
-          <input type="text" id="pages" name="pages" /><br />
-          <input type="radio" id="read" name="read-status" value="read" />
-          <label for="read">Read</label>
-          <input type="radio" id="not-read" name="read-status" value="not-read" />
-          <label for="not-read">Not Read</label><br />
-          <button>Submit</button>
-        </form>
+      <div class="library">
+        <h1>theLibrary</h1>
       </div>
+      <div class="form-container">
+        <button id="accordion">&#10010; Add Book</button>
+        <div class="panel">
+          <form id="book-form">
+            <label class="labels" for="title">Title</label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              size="50"
+              maxlength="50"
+            /><br />
+            <label class="labels" for="author">Author</label>
+            <input
+              type="text"
+              id="author"
+              name="author"
+              size="50"
+              maxlength="50"
+            /><br />
+            <label class="labels" for="title">Pages</label>
+            <input
+              type="text"
+              id="pages"
+              name="pages"
+              size="4"
+              maxlength="4"
+            /><br />
+            <input type="radio" id="read" name="read-status" value="Read" />
+            <label class="labels" for="read">Read</label>
+            <input
+              type="radio"
+              id="not-read"
+              name="read-status"
+              value="Unread"
+            />
+            <label class="labels" for="not-read">Unread</label><br />
+            <button class="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+      <div class="card-container"></div>
     </div>
   </body>
 </html>
