@@ -1,25 +1,187 @@
-body, html {
+body,
+html {
     width: 100%;
     height: 100%;
+    font-family: 'Ubuntu', sans-serif !important;
+    font-size: 16px;
+    background-color: #CAE7DF;
 }
 
-.container {
+.library {
+    background-color: #194049;
+    height: 70px;
+    padding-left: 20px;
+}
+
+.library h1 {
+    line-height: 70px;
+    color: white;
+    font-size: 3.2rem;
+    font-weight: bold;
+}
+
+.form-container {
+    position: relative;
     width: 100%;
-    height: 100%;
-    background-color: antiquewhite;
+    background-color: #F4ABAA;
 }
 
-.form-container{
-    width: 300px;
-    height: 200px;
-    background-color: brown;
+label {
+    font-size: 3rem;
+    color: white;
+}
+
+input[type=text] {
+    font-size: 1.1rem;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+input[type=radio] {
+    height: 25px;
+    width: 25px;
+    box-sizing: border-box;
+}
+
+input[id=not-read]{
+    margin-left: 40px;
+}
+
+.labels{
+    font-size: 1.2rem;
 }
 
 .card {
-    width: 200px;
-    height: 300px;
-    background-color: aquamarine;
+    width: 250px;
+    height: 350px;
     border-radius: 10px;
     position: relative;
+    float: left;
+    margin: 10px 25px 10px 25px;
+}
+
+.card-container{
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.read {
+    transition: 1s;
+    background-color: #001131;
+}
+
+.not-read {
+    transition: 1s;
+    background-color: #EE7879;
+}
+
+.submit {
+    background-color: #ed7488;
+    border: none;
+    font-size: 1.1rem;
+    color: white;
+    padding: 20px 32px;
+    text-decoration: none;
+    margin: 10px 0px;
+    cursor: pointer;
+  }
+
+p {
+    color: white;
+}
+
+.title {
+    position: absolute;
+    top: 60px;
+    width: 230px;
+    height: 60px;
+    left: 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 30px;
+}
+
+
+.author {
+    position: absolute;
+    top: 180px;
+    height: 20px;
+    left: 10px;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+
+.pages {
+    position: absolute;
+    bottom: 54px;
+    width: 90%;
+    font-size: 1.6rem;
+    font-size: bold;
+    text-align: right;
+}
+
+.read-btn {
+    background-color: white;
+    border: none;
+    margin: 0 auto;
+    height: 50px;
+    width: 100%;
+    border-radius: 0 0 10px 10px;
+    position: absolute;
+    bottom: 0;
+    z-index: 2;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.dec {
+    position: absolute;
+    bottom: 0;
+    height: 0;
+    z-index: 1;
+    left: 50%;
+    margin-left: -40px;
+    border-style: solid;
+    border-width: 0 40px 69.3px 40px;
+    border-color: transparent transparent white transparent;
+
+}
+
+.delete-btn {
+    color: white;
+    height: 20px;
+    width: 20px;
     float: right;
+    right: 10px;
+    position: relative;
+    font-size: 40px;
+    background: none;
+    text-align: right;
+}
+
+.delete-btn:hover {
+    cursor: pointer;
+}
+
+#accordion {
+    background-color: #194049;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    border: none;
+    text-align: center;
+    outline: none;
+    font-size: 1.4rem;
+    transition: 1.2s;
+}
+
+.panel {
+    padding: 0 18px;
+    background-color: #194049;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
 }
