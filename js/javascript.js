@@ -1,25 +1,36 @@
-"use strict"
-const container = document.querySelector(".container");
+"use strict";
+const container = document.querySelector(".card-container");
 const bookForm = document.getElementById("book-form");
-const addBtn = document.getElementById("add-book");
 
 let myLibrary = [
   {
-    title: "Harry Potter and the Philosopher's Stone",
-    author: "J.K Rowling",
-    pages: "309",
+    title: "The Promised Neverland Vol. 1",
+    author: "Shirai Kaiu",
+    pages: "200",
     read: "Read"
   },
   {
-    title: "Yakusoku no Neverland Vol. 1",
-    author: "Shirai Kaiu",
-    pages: "200",
+    title: "One Punch Man Vol. 1",
+    author: "ONE",
+    pages: "201",
     read: "Read"
   },
   {
     title: "Naruto Vol. 42",
     author: "Kishimoto Masashi",
     pages: "187",
+    read: "Unread"
+  },
+  {
+    title: "Bleach Vol. 34",
+    author: "Kubotite",
+    pages: "190",
+    read: "Read"
+  },
+  {
+    title: "My Hero Academia Vol. 1",
+    author: "Kohei Horikoshi",
+    pages: "192",
     read: "Unread"
   }
 ];
@@ -43,6 +54,9 @@ bookForm.addEventListener("submit", function(event) {
   const author = bookForm.querySelector('input[id="author"]').value;
   const pages = bookForm.querySelector('input[id="pages"]').value;
   const read = bookForm.querySelector('input[type="radio"]:checked').value;
+  if (title == "" || author == "" || pages == "" || read == null) {
+    return;
+  }
   const newBook = new Book(title, author, pages, read);
   addBookToLibrary(newBook);
   render(myLibrary);
@@ -55,24 +69,30 @@ function render(myLibrary) {
       let id = uuidv4();
       const card = document.createElement("div");
       card.classList.add("card");
-      card.classList.add("on-display");
       book.id = id;
       card.dataset.value = id;
       container.appendChild(card);
-      const cardTitleDiv = document.createElement('div');
-      cardTitleDiv.classList.add('title');
+      const deleteBtn = document.createElement("div");
+      deleteBtn.classList.add("delete-btn");
+      deleteBtn.innerHTML = "x";
+      card.appendChild(deleteBtn);
+      deleteBtn.addEventListener("click", () => {
+        deleteCard(event.target.parentNode);
+      });
+      const cardTitleDiv = document.createElement("div");
+      cardTitleDiv.classList.add("title");
       const cardTitle = document.createElement("p");
-      cardTitle.innerHTML = `Book: ${book.title}`;
+      cardTitle.innerHTML = `${book.title}`;
       cardTitleDiv.appendChild(cardTitle);
       const cardAuthorDiv = document.createElement("div");
-      cardAuthorDiv.classList.add('author');
+      cardAuthorDiv.classList.add("author");
       const cardAuthor = document.createElement("p");
-      cardAuthor.innerHTML = `Author: ${book.author}`;
+      cardAuthor.innerHTML = `${book.author}`;
       cardAuthorDiv.appendChild(cardAuthor);
       const cardPagesDiv = document.createElement("div");
-      cardPagesDiv.classList.add('pages');
+      cardPagesDiv.classList.add("pages");
       const cardPages = document.createElement("p");
-      cardPages.innerHTML = `Pages: ${book.pages}`;
+      cardPages.innerHTML = `${book.pages}`;
       cardPagesDiv.appendChild(cardPages);
       card.appendChild(cardTitleDiv);
       card.appendChild(cardAuthorDiv);
@@ -80,38 +100,21 @@ function render(myLibrary) {
       book.read == "Read"
         ? card.classList.add("read")
         : card.classList.add("not-read");
-      const readBtnDiv = document.createElement("div");
-      readBtnDiv.classList.add('read-btn')
       const readBtn = document.createElement("button");
+      const readBtnDec = document.createElement("div");
+      readBtnDec.classList.add("dec");
+      card.appendChild(readBtnDec);
+      readBtn.classList.add("read-btn");
       book.read == "Read"
         ? (readBtn.innerHTML = "Read")
         : (readBtn.innerHTML = "Unread");
-      readBtnDiv.appendChild(readBtn)
-      card.appendChild(readBtnDiv);
+      card.appendChild(readBtn);
       readBtn.addEventListener("click", () => {
         changeStatus(event.target.parentNode);
       });
-      const deleteBtnDiv = document.createElement("div");
-      const deleteBtn = document.createElement("button");
-      deleteBtnDiv.appendChild(deleteBtn)
-      card.appendChild(deleteBtnDiv);
-      deleteBtn.innerHTML = "x";
-      deleteBtnDiv.appendChild(deleteBtn);
-      deleteBtn.addEventListener("click", () => {
-        deleteCard(event.target.parentNode);
-      });
     }
   });
-  console.table(myLibrary);
-
 }
-
-addBtn.addEventListener("click", () => {
-  console.log("I was clicked");
-  bookForm.style.display === "none"
-    ? (bookForm.style.display = "block")
-    : (bookForm.style.display = "none");
-});
 
 function deleteCard(card) {
   container.removeChild(card);
@@ -120,7 +123,6 @@ function deleteCard(card) {
       myLibrary.splice(index, 1);
     }
   });
-  console.table(myLibrary);
 }
 
 function getIndex(card) {
@@ -146,12 +148,23 @@ function changeStatus(card) {
     myLibrary[index]["read"] = "Read";
     event.target.innerHTML = "Read";
   }
-  console.table(myLibrary);
 }
 
 function uuidv4() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
+    var r = (Math.random() * 16) | 0,
+      v = c == "x" ? r : (r & 0x3) | 0x8;
     return v.toString(16);
   });
 }
+
+const accordion = document.getElementById("accordion");
+
+accordion.addEventListener("click", function() {
+  const panel = this.nextElementSibling;
+  if (panel.style.maxHeight) {
+    panel.style.maxHeight = null;
+  } else {
+    panel.style.maxHeight = panel.scrollHeight + "px";
+  }
+});
